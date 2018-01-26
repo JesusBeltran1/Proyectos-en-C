@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+int menu(int EST[10][10]);
+int ingresa(int cajon[10][10]);
+int sale(int cajon[10][10]);
+int main(){
+    int EST[10][10],i,j;//EST =estacionamiento , i,j= contadores
+
+    for(i=0;i<10; i++){
+        for(j=0;j<10;j++){
+            EST[i][j]=0;
+        }
+    }
+    printf("Estacionamiento ''CACHO''\n");
+    menu(EST);
+    return 0;
+}
+int menu(int EST[10][10]){
+    int po, so;//po= primera opcion, so=segunda opcion
+    Inicio:
+        printf("Desea:\n1. Ingresar un auto\n2. Retirar un auto\n3. Salir del programa\nopcion: ");
+        scanf("%D",&po);
+        if(po==1){
+            EST=ingresa(EST);
+            system("cls");
+        }
+        else if(po==2){
+            EST=sale(EST);
+            system("cls");
+        }
+        else{
+            printf("Opcion invalida escoge una valida\n");
+            goto Inicio;
+        }
+    fin:
+        printf("\nOtro movimiento\n1. Si\n2. No\nOpcion: ");
+        scanf("%d",&so);
+        if(so==1){
+            return 0;
+        }
+        else if(so==2){
+            goto Inicio;
+        }
+        else{
+            printf("seleccion invalida, vuelva a elegir una opcion valida\n");
+            goto fin;
+        }
+}
+int ingresa(int cajon[10][10]){
+    int F,C; //F=fila, C=columna
+    system("cls");
+    printf("\nIngrese la Fila y Columna donde ingresara su auto");
+    inicio:
+        printf("Fila: ");
+        scanf("%d",&F);
+        printf("Columna: ");
+        scanf("%d",&C);
+        if((C<1)||(C>10)){
+            printf("\nColumna invalida, Vuelva a ingresarla\n");
+            goto inicio;
+        }
+        else if((F<1)||(F>10)){
+            printf("\nFila invalida, Vuelva a ingresarla\n");
+            goto inicio;
+        }
+        else{
+            cajon[F][C]=1;
+        }
+    return cajon;
+}
+int sale(int cajon[10][10]){
+    int F,C; //F=fila, C=columna
+    float costo,tiempo;
+    system("cls");
+    printf("Ingrese La Fila y la Columna donde esta su auto");
+    inicio:
+        printf("Fila: ");
+        scanf("%d",&F);
+        printf("Columna: ");
+        scanf("%d",&C);
+        if((C<1)||(C>10)){
+            printf("\nColumna invalida, Vuelva a ingresarla\n");
+            goto inicio;
+        }
+        else if((F<1)||(F>10)){
+            printf("\nFila invalida, Vuelva a ingresarla\n");
+            goto inicio;
+        }
+        else{
+            if(cajon[F][C]==0){
+                printf("\nEl lugar esta vacio!!!!\nIngrese el lugar donde esta su auto\n");
+                goto inicio;
+            }
+            else{
+                cajon[F][C]=0;
+
+            }
+        }
+
+    system("cls");
+    printf("\n\t\tEstacionamiento ''CACHO''\n\tCosto por hora $15\n\n");
+    printf("Cuanto tiempo (en minutos) duro alojado\nTiempo: ");
+    cobro:
+        scanf("%f",&tiempo);
+        if(tiempo<=0){
+            printf("Tiempo invalido vuelva a ingresarlo\nTiempo: ");
+            goto cobro;
+        }
+        else {
+            costo=(tiempo*15)/60;
+            system("cls");
+            printf("Estacionamiento ''CACHO'' Agradece su visita\n");
+            printf("Tiempo de estadia\t%.2f\nCosto por estadia\t%.2f\n\n",tiempo,costo);
+            system("pause");
+            return cajon;
+        }
+
+
+}
